@@ -28,47 +28,39 @@ public class AmazonSearch {
 		
 		driver.get("https://www.amazon.in/");
 		
-		driver.manage().window().maximize();
 		
-		driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
-		
-		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ecommerce","root","root");
-			//Connection con=DriverManager.getConnection("jdbc:mysql://3.95.238.133:3306/ecommerce","root","root");
-			Statement stmn=con.createStatement();
-			ResultSet rs=stmn.executeQuery("select * from AMAZON");
-			while(rs.next()){
-				//System.out.println(rs.getString(2)+ " "+rs.getString(3));
-				category=rs.getString(2);
-				term=rs.getString(3);
-			}
-			
-			
-		}
-		catch(ClassNotFoundException e)
-		{
-			System.out.println("Class Not Found");
-		}
-		catch (SQLException e) {
-			System.out.println("SQL Exception");
-		}
-		WebElement searchDD = driver.findElement(By.xpath("//*[@id='searchDropdownBox']"));
-		Select optionToSelect = new Select(searchDD);
-		optionToSelect.selectByVisibleText(category);
-		WebElement searched= driver.findElement(By.xpath("//*[@id='twotabsearchtextbox']"));
-		searched.sendKeys(term);
-		
-		WebElement searchButton=driver.findElement(By.xpath("//*[@id='nav-search-submit-button']"));
-		searchButton.click();
-		
-		List<WebElement> results = driver.findElements(By.xpath("//h2[@class='a-size-mini a-spacing-none a-color-base s-line-clamp-2']"));
-		System.out.println("Total Results are: " + results.size());
-		
-		for(WebElement e : results) {
-			  System.out.println(e.getText());
-		}
+		  driver.manage().window().maximize();
+		  
+		  driver.manage().timeouts().implicitlyWait(5000, TimeUnit.MILLISECONDS);
+		 
+		  try {
+		  Class.forName("com.mysql.cj.jdbc.Driver"); Connection
+		  con=DriverManager.getConnection("jdbc:mysql://localhost:3306/ecommerce","root","root");
+		  Statement stmn=con.createStatement(); ResultSet
+		  rs=stmn.executeQuery("select * from AMAZON"); 
+		  while(rs.next()){
+		  category=rs.getString(2); term=rs.getString(3);  
+		  
+		  }}
+		  catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) { e.printStackTrace();} 
+		  WebElement
+		  searchDD = driver.findElement(By.xpath("//*[@id='searchDropdownBox']"));
+		  Select optionToSelect = new Select(searchDD);
+		  optionToSelect.selectByVisibleText(category); WebElement searched=
+		  driver.findElement(By.xpath("//*[@id='twotabsearchtextbox']"));
+		  searched.sendKeys(term);
+		  
+		  WebElement searchButton=driver.findElement(By.xpath(
+		  "//*[@id='nav-search-submit-button']")); searchButton.click();
+		  
+		  List<WebElement> results = driver.findElements(By.
+		  xpath("//h2[@class='a-size-mini a-spacing-none a-color-base s-line-clamp-2']"
+		  )); System.out.println("Total Results are: " + results.size());
+		  
+		  for(WebElement e : results) { System.out.println(e.getText()); } 
 		driver.close();
 	}
 
